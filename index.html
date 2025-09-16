@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DistributedHashCracker - Scalable Hash Cracking with Your Own Cloud</title>
+    <meta name="description" content="Open-source platform for distributed hash cracking using your own AWS infrastructure. Secure, scalable, and cost-effective cryptographic research.">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: #667eea;
+        }
+        
+        main {
+            padding-top: 100px;
+        }
+        
+        .hero {
+            text-align: center;
+            padding: 4rem 0;
+            color: white;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+        
+        .btn-primary {
+            background: #ff6b6b;
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+        }
+        
+        .btn-primary:hover {
+            background: #ff5252;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.6);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        
+        .btn-secondary:hover {
+            background: white;
+            color: #667eea;
+            transform: translateY(-2px);
+        }
+        
+        .features {
+            background: white;
+            padding: 4rem 0;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .feature {
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            text-align: center;
+            transition: transform 0.3s;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+        
+        .feature:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+        
+        .feature h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #667eea;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .architecture {
+            background: #f8f9fa;
+            padding: 4rem 0;
+        }
+        
+        .architecture-diagram {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            margin-top: 2rem;
+            text-align: center;
+        }
+        
+        .flow-steps {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .step {
+            flex: 1;
+            min-width: 120px;
+            padding: 1rem;
+            background: #667eea;
+            color: white;
+            border-radius: 8px;
+            font-weight: bold;
+            text-align: center;
+        }
+        
+        .arrow {
+            font-size: 1.5rem;
+            color: #667eea;
+        }
+        
+        .use-cases {
+            padding: 4rem 0;
+            background: white;
+        }
+        
+        .use-cases-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .use-case {
+            padding: 2rem;
+            border-left: 4px solid #667eea;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .use-case h4 {
+            color: #667eea;
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+        
+        .status {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            margin-bottom: 1rem;
+            backdrop-filter: blur(10px);
+        }
+        
+        .roadmap {
+            background: #f8f9fa;
+            padding: 4rem 0;
+        }
+        
+        .roadmap-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .roadmap-item {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+        
+        .phase {
+            color: #667eea;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        
+        footer {
+            background: #333;
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover {
+            color: #667eea;
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .flow-steps {
+                flex-direction: column;
+            }
+            
+            .arrow {
+                transform: rotate(90deg);
+            }
+            
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">DistributedHashCracker</div>
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#architecture">Architecture</a></li>
+                <li><a href="#use-cases">Use Cases</a></li>
+                <li><a href="#roadmap">Roadmap</a></li>
+                <li><a href="https://github.com/yourusername/distributed-hash-cracker">GitHub</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1>Distributed Hash Cracking</h1>
+                <p>Revolutionary open-source platform for scalable cryptographic analysis using your own cloud infrastructure</p>
+                <div class="cta-buttons">
+                    <a href="https://github.com/yourusername/distributed-hash-cracker" class="btn btn-primary">View on GitHub</a>
+                    <a href="#features" class="btn btn-secondary">Learn More</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="features" class="features">
+            <div class="container">
+                <h2 class="section-title">Why Choose DistributedHashCracker?</h2>
+                <p class="section-subtitle">Built for security researchers who need scalable, transparent, and cost-effective hash cracking capabilities</p>
+                
+                <div class="features-grid">
+                    <div class="feature">
+                        <span class="feature-icon">🚀</span>
+                        <h3>Dynamic Scaling</h3>
+                        <p>From single containers to hundreds of instances. Scale based on your budget and timeline requirements.</p>
+                    </div>
+                    <div class="feature">
+                        <span class="feature-icon">💰</span>
+                        <h3>Cost Control</h3>
+                        <p>Use your own AWS account with strict budget limits. No hidden fees or markup on compute resources.</p>
+                    </div>
+                    <div class="feature">
+                        <span class="feature-icon">🔒</span>
+                        <h3>Security First</h3>
+                        <p>Open source codebase, minimal permissions, and complete credential isolation for maximum trust.</p>
+                    </div>
+                    <div class="feature">
+                        <span class="feature-icon">⚡</span>
+                        <h3>Smart Distribution</h3>
+                        <p>Intelligent work allocation across containers with automatic load balancing and failure handling.</p>
+                    </div>
+                    <div class="feature">
+                        <span class="feature-icon">📊</span>
+                        <h3>Real-time Monitoring</h3>
+                        <p>Live progress tracking, performance metrics, and cost analysis throughout the cracking process.</p>
+                    </div>
+                    <div class="feature">
+                        <span class="feature-icon">🎯</span>
+                        <h3>Multi-Algorithm</h3>
+                        <p>Support for MD5, SHA-1, SHA-256, NTLM, and more cryptographic hash algorithms.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="architecture" class="architecture">
+            <div class="container">
+                <h2 class="section-title">How It Works</h2>
+                <p class="section-subtitle">Simple workflow that handles complex distributed computing automatically</p>
+                
+                <div class="architecture-diagram">
+                    <div class="flow-steps">
+                        <div class="step">Submit Hash</div>
+                        <div class="arrow">→</div>
+                        <div class="step">Configure AWS</div>
+                        <div class="arrow">→</div>
+                        <div class="step">Auto Deploy</div>
+                        <div class="arrow">→</div>
+                        <div class="step">Distribute Work</div>
+                        <div class="arrow">→</div>
+                        <div class="step">Monitor Progress</div>
+                        <div class="arrow">→</div>
+                        <div class="step">Get Results</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="use-cases" class="use-cases">
+            <div class="container">
+                <h2 class="section-title">Perfect For</h2>
+                <p class="section-subtitle">Trusted by security professionals, researchers, and educators worldwide</p>
+                
+                <div class="use-cases-grid">
+                    <div class="use-case">
+                        <h4>Security Research</h4>
+                        <p>Academic and commercial cryptographic analysis with scalable compute resources and transparent methodologies.</p>
+                    </div>
+                    <div class="use-case">
+                        <h4>Penetration Testing</h4>
+                        <p>Client engagement password recovery with controlled costs and auditable processes for compliance reporting.</p>
+                    </div>
+                    <div class="use-case">
+                        <h4>Digital Forensics</h4>
+                        <p>Evidence recovery and analysis with distributed processing capabilities for time-sensitive investigations.</p>
+                    </div>
+                    <div class="use-case">
+                        <h4>Education</h4>
+                        <p>Cryptography courses demonstrating hash vulnerabilities and distributed computing concepts with hands-on experience.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="status">
+            <div class="container">
+                <div class="status-badge">🚧 Currently in Development</div>
+                <h2>Building the Future of Distributed Hash Cracking</h2>
+                <p>Join our community of security researchers and help shape this revolutionary platform</p>
+                <div style="margin-top: 2rem;">
+                    <a href="https://github.com/yourusername/distributed-hash-cracker" class="btn btn-primary">Star on GitHub</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="roadmap" class="roadmap">
+            <div class="container">
+                <h2 class="section-title">Development Roadmap</h2>
+                <p class="section-subtitle">Transparent progress tracking and feature delivery timeline</p>
+                
+                <div class="roadmap-items">
+                    <div class="roadmap-item">
+                        <div class="phase">Phase 1 - MVP (Months 1-3)</div>
+                        <ul>
+                            <li>Basic web interface and API</li>
+                            <li>Single-algorithm support (MD5)</li>
+                            <li>Manual infrastructure management</li>
+                            <li>Core container orchestration</li>
+                        </ul>
+                    </div>
+                    <div class="roadmap-item">
+                        <div class="phase">Phase 2 - Core Features (Months 4-6)</div>
+                        <ul>
+                            <li>Multi-algorithm support</li>
+                            <li>Automatic resource cleanup</li>
+                            <li>Real-time progress monitoring</li>
+                            <li>Cost estimation and budgeting</li>
+                        </ul>
+                    </div>
+                    <div class="roadmap-item">
+                        <div class="phase">Phase 3 - Advanced (Months 7-9)</div>
+                        <ul>
+                            <li>GPU acceleration support</li>
+                            <li>Dictionary and hybrid attacks</li>
+                            <li>Performance analytics</li>
+                            <li>Advanced AWS integration</li>
+                        </ul>
+                    </div>
+                    <div class="roadmap-item">
+                        <div class="phase">Phase 4 - Enterprise (Months 10-12)</div>
+                        <ul>
+                            <li>API access for automation</li>
+                            <li>Multi-cloud support</li>
+                            <li>Advanced reporting</li>
+                            <li>Enterprise partnerships</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="https://github.com/yourusername/distributed-hash-cracker">GitHub</a>
+                <a href="mailto:contact@distributedashcracker.com">Contact</a>
+                <a href="#security">Security</a>
+                <a href="#contributing">Contributing</a>
+            </div>
+            <p>&copy; 2025 DistributedHashCracker. Open source security research platform.</p>
+        </div>
+    </footer>
+</body>
+</html>
