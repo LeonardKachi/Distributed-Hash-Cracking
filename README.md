@@ -116,7 +116,7 @@ See our [Security Policy](docs/SECURITY.md) for complete guidelines.
 - **Discussions**: Use GitHub Discussions for questions and ideas
 - **Issues**: Report bugs and feature requests via GitHub Issues
 - **Security**: Contact security@distributedashcracker.com for vulnerabilities
-- **Updates**: Follow [@@Leonard_kachi](https://twitter.com/@Leonard_kachi) for development updates
+- **Updates**: Follow [@Leonard_kachi](https://twitter.com/@Leonard_kachi) for development updates
 
 ## Roadmap
 
