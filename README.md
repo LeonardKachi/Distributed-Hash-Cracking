@@ -30,12 +30,12 @@ Submit a hash through our web interface, configure your AWS credentials and reso
 
 ## Key Features
 
-🚀 **Dynamic Scaling** - From single containers to hundreds of instances  
-💰 **Cost Control** - Use your own AWS account, set strict budget limits  
-🔍 **Smart Distribution** - Optimal work allocation reduces cracking time  
-📊 **Real-time Monitoring** - Live progress tracking and performance metrics  
-🔒 **Security First** - Open source, minimal permissions, credential isolation  
-🎯 **Multi-Algorithm** - MD5, SHA-1, SHA-256, NTLM, and more  
+ **Dynamic Scaling** - From single containers to hundreds of instances  
+ **Cost Control** - Use your own AWS account, set strict budget limits  
+ **Smart Distribution** - Optimal work allocation reduces cracking time  
+ **Real-time Monitoring** - Live progress tracking and performance metrics  
+ **Security First** - Open source, minimal permissions, credential isolation  
+ **Multi-Algorithm** - MD5, SHA-1, SHA-256, NTLM, and more  
 
 ## Architecture Overview
 
@@ -82,11 +82,11 @@ Cryptography courses demonstrating hash vulnerabilities and distributed computin
 
 We're actively building the core platform components:
 
-- ✅ Technical specification complete
-- 🔄 Frontend web application (in progress)
-- 🔄 Backend API service (in progress)
-- 📋 Terraform infrastructure templates (planned)
-- 📋 Container orchestration system (planned)
+-  Technical specification complete
+-  Frontend web application (in progress)
+-  Backend API service (in progress)
+-  Terraform infrastructure templates (planned)
+-  Container orchestration system (planned)
 
 ## Contributing
 
@@ -116,7 +116,7 @@ See our [Security Policy](docs/SECURITY.md) for complete guidelines.
 - **Discussions**: Use GitHub Discussions for questions and ideas
 - **Issues**: Report bugs and feature requests via GitHub Issues
 - **Security**: Contact security@distributedashcracker.com for vulnerabilities
-- **Updates**: Follow [@DistHashCrack](https://twitter.com/DistHashCrack) for development updates
+- **Updates**: Follow [@@Leonard_kachi](https://twitter.com/@Leonard_kachi) for development updates
 
 ## Roadmap
 
@@ -153,11 +153,11 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## Support
 
 If you find this project valuable, please:
-- ⭐ Star this repository
-- 🐛 Report issues you encounter  
-- 💡 Suggest new features
-- 📢 Share with your network
-- 🤝 Contribute code or documentation
+-  Star this repository
+-  Report issues you encounter  
+-  Suggest new features
+-  Share with your network
+-  Contribute code or documentation
 
 ---
 
