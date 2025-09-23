@@ -319,10 +319,9 @@
 }
 
 .footer-about h3 {
-  color: var(--accent);
   margin-bottom: 1rem;
-  font-size: 1.5rem;
-  font-weight: 600;
+  font-size: 1.8rem;
+  font-weight: 700;
 }
 
 .footer-about p {
@@ -363,13 +362,25 @@
   color: var(--text-muted);
 }
 
-/* Leonard Kachi name styling */
-.footer-about h3 {
+/* Leonard Kachi logo styling */
+.name-logo {
+  display: flex;
+  align-items: center;
   font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
   font-weight: 700;
   letter-spacing: 0.5px;
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
 }
 
+.leonard {
+  color: white;
+  margin-right: 0.2rem;
+}
+
+.kachi {
+  color: var(--accent);
+}
     
     @media (max-width: 768px) {
         .hero h1 {
@@ -400,6 +411,10 @@
         .footer-content {
             grid-template-columns: 1fr;
             gap: 2rem;
+        }
+        
+        .name-logo {
+            font-size: 1.5rem;
         }
     }
 </style>
@@ -582,7 +597,10 @@
     <div class="container">
       <div class="footer-content">
         <div class="footer-about">
-          <h3>Leonard Kachi</h3>
+          <div class="name-logo">
+            <span class="leonard">Leonard</span>
+            <span class="kachi">Kachi</span>
+          </div>
           <p>Cloud Security Architect specializing in AWS, Azure, and Zero Trust implementations.</p>
           <p>Turning threats into design. By blending AWS, Zero Trust, and automation, I build security infrastructures that scale and stories that launch careers.</p>
         </div>
