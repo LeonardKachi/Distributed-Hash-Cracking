@@ -83,7 +83,7 @@
     }
     
     main {
-        padding-top: 100px;
+        padding-top: 120px; /* Increased to account for fixed header */
     }
     
     .page-header {
@@ -104,11 +104,12 @@
         opacity: 0.9;
         max-width: 700px;
         margin: 0 auto;
+        line-height: 1.6;
     }
     
     .content-section {
         background: white;
-        padding: 3rem 0;
+        padding: 3rem;
         margin-bottom: 2rem;
         border-radius: 10px;
         box-shadow: 0 5px 15px rgba(0,0,0,0.08);
@@ -123,7 +124,8 @@
     }
     
     .subsection {
-        margin-bottom: 2rem;
+        margin-bottom: 2.5rem;
+        padding: 0 0.5rem;
     }
     
     .subsection h3 {
@@ -139,13 +141,14 @@
     
     .feature-list {
         list-style-type: none;
-        padding-left: 1rem;
+        padding-left: 0;
     }
     
     .feature-list li {
         margin-bottom: 0.8rem;
         position: relative;
-        padding-left: 1.5rem;
+        padding-left: 1.8rem;
+        line-height: 1.5;
     }
     
     .feature-list li:before {
@@ -159,10 +162,12 @@
     .code-block {
         background: #f8f9fa;
         border-left: 4px solid #228B22;
-        padding: 1rem;
+        padding: 1.2rem;
         margin: 1.5rem 0;
         font-family: monospace;
         overflow-x: auto;
+        border-radius: 0 5px 5px 0;
+        line-height: 1.4;
     }
     
     .btn {
@@ -211,7 +216,8 @@
     
     .card h4 {
         color: #228B22;
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.8rem;
+        font-size: 1.2rem;
     }
     
     .tab-container {
@@ -221,7 +227,7 @@
     .tabs {
         display: flex;
         border-bottom: 1px solid #ddd;
-        margin-bottom: 1rem;
+        margin-bottom: 0;
     }
     
     .tab {
@@ -232,6 +238,11 @@
         border-radius: 5px 5px 0 0;
         margin-right: 0.5rem;
         background: #f1f1f1;
+        transition: all 0.3s;
+    }
+    
+    .tab:hover {
+        background: #e9e9e9;
     }
     
     .tab.active {
@@ -245,7 +256,7 @@
     
     .tab-content {
         display: none;
-        padding: 1rem;
+        padding: 1.5rem;
         background: white;
         border: 1px solid #ddd;
         border-top: none;
@@ -333,6 +344,20 @@
         color: var(--accent);
     }
     
+    /* Page toggle button styling */
+    .page-toggle {
+        text-align: center;
+        margin: 2rem 0;
+    }
+    
+    /* Fix for anchor links being hidden behind fixed header */
+    .section-anchor {
+        display: block;
+        position: relative;
+        top: -120px;
+        visibility: hidden;
+    }
+    
     @media (max-width: 768px) {
         .nav-links {
             display: none;
@@ -359,6 +384,27 @@
             margin-right: 0;
             margin-bottom: 0.5rem;
             border-radius: 5px;
+            text-align: center;
+        }
+        
+        .content-section {
+            padding: 2rem 1.5rem;
+        }
+        
+        .section-title {
+            font-size: 1.7rem;
+        }
+        
+        .subsection h3 {
+            font-size: 1.3rem;
+        }
+        
+        main {
+            padding-top: 100px;
+        }
+        
+        .section-anchor {
+            top: -100px;
         }
     }
 </style>
@@ -379,6 +425,7 @@
     <main class="container">
         <!-- Security Page Content -->
         <section id="security">
+            <span class="section-anchor" id="security-anchor"></span>
             <div class="page-header">
                 <h1>Security Framework</h1>
                 <p>Comprehensive security practices, threat modeling, and defense mechanisms for the DistributedHashCracker platform</p>
@@ -525,6 +572,7 @@ async function hashPassword(password) {
         
         <!-- Contributing Page Content -->
         <section id="contributing" style="display: none;">
+            <span class="section-anchor" id="contributing-anchor"></span>
             <div class="page-header">
                 <h1>Contribution Guidelines</h1>
                 <p>Join our community of security researchers and help build the future of distributed hash cracking</p>
@@ -553,7 +601,7 @@ cp .env.example .env
 npm run dev
                     </div>
                     
-                    <p>For detailed setup instructions, check our <a href="Technical_Specification.txt">Development Setup Guide</a>.</p>
+                    <p>For detailed setup instructions, check our <a href="#">Development Setup Guide</a>.</p>
                 </div>
                 
                 <div class="subsection">
@@ -712,7 +760,7 @@ chore: update dependencies
             </div>
         </section>
         
-        <div style="text-align: center; margin: 2rem 0;">
+        <div class="page-toggle">
             <button onclick="togglePages()" class="btn btn-primary" id="toggleButton">View Contributing Guidelines</button>
         </div>
     </main>
@@ -785,10 +833,14 @@ chore: update dependencies
                 securityPage.style.display = 'none';
                 contributingPage.style.display = 'block';
                 toggleButton.textContent = 'View Security Framework';
+                // Update URL hash
+                window.location.hash = 'contributing';
             } else {
                 securityPage.style.display = 'block';
                 contributingPage.style.display = 'none';
                 toggleButton.textContent = 'View Contributing Guidelines';
+                // Update URL hash
+                window.location.hash = 'security';
             }
             
             // Scroll to top when switching pages
@@ -797,6 +849,41 @@ chore: update dependencies
         
         // Set current year in footer
         document.getElementById('year').textContent = new Date().getFullYear();
+        
+        // Handle page load with hash
+        window.addEventListener('load', function() {
+            if (window.location.hash === '#contributing') {
+                togglePages();
+            }
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#security' || targetId === '#contributing') {
+                    if (targetId === '#contributing' && document.getElementById('security').style.display !== 'none') {
+                        togglePages();
+                    } else if (targetId === '#security' && document.getElementById('contributing').style.display !== 'none') {
+                        togglePages();
+                    }
+                    
+                    // Scroll to the top of the page
+                    window.scrollTo(0, 0);
+                } else {
+                    // For other anchor links
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 120,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
     </script>
 </body>
 </html>
