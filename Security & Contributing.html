@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DistributedHashCracker - Security & Contributing</title>
+    <meta name="description" content="Security practices and contribution guidelines for the DistributedHashCracker project">
+    
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    :root {
+        --primary: #0d1f23;
+        --secondary: #1e3d38;
+        --accent: #3aafa9;
+        --accent-dark: #2b837e;
+        --text: #feffff;
+        --text-muted: #a0aec0;
+        --text-dark: #2d3748;
+        --transition: all 0.3s ease;
+        --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.2);
+        --radius: 8px;
+        --radius-sm: 4px;
+    }
+    
+    body {
+        font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        background: linear-gradient(135deg, #228B22 0%, #006400 100%);
+        min-height: 100vh;
+    }
+    
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+    
+    header {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        padding: 1rem 0;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+    }
+    
+    nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .logo {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #228B22;
+    }
+    
+    .nav-links {
+        display: flex;
+        list-style: none;
+        gap: 2rem;
+    }
+    
+    .nav-links a {
+        text-decoration: none;
+        color: #333;
+        font-weight: 500;
+        transition: color 0.3s;
+    }
+    
+    .nav-links a:hover {
+        color: #228B22;
+    }
+    
+    main {
+        padding-top: 100px;
+    }
+    
+    .page-header {
+        text-align: center;
+        padding: 3rem 0;
+        color: white;
+        margin-bottom: 2rem;
+    }
+    
+    .page-header h1 {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+    
+    .page-header p {
+        font-size: 1.2rem;
+        opacity: 0.9;
+        max-width: 700px;
+        margin: 0 auto;
+    }
+    
+    .content-section {
+        background: white;
+        padding: 3rem 0;
+        margin-bottom: 2rem;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    }
+    
+    .section-title {
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+        color: #228B22;
+        border-bottom: 2px solid #228B22;
+        padding-bottom: 0.5rem;
+    }
+    
+    .subsection {
+        margin-bottom: 2rem;
+    }
+    
+    .subsection h3 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        color: #228B22;
+    }
+    
+    .subsection p {
+        margin-bottom: 1rem;
+        line-height: 1.7;
+    }
+    
+    .feature-list {
+        list-style-type: none;
+        padding-left: 1rem;
+    }
+    
+    .feature-list li {
+        margin-bottom: 0.8rem;
+        position: relative;
+        padding-left: 1.5rem;
+    }
+    
+    .feature-list li:before {
+        content: "✓";
+        color: #228B22;
+        font-weight: bold;
+        position: absolute;
+        left: 0;
+    }
+    
+    .code-block {
+        background: #f8f9fa;
+        border-left: 4px solid #228B22;
+        padding: 1rem;
+        margin: 1.5rem 0;
+        font-family: monospace;
+        overflow-x: auto;
+    }
+    
+    .btn {
+        display: inline-block;
+        padding: 0.8rem 1.5rem;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+        transition: all 0.3s;
+        border: none;
+        cursor: pointer;
+        font-size: 1rem;
+    }
+    
+    .btn-primary {
+        background: #2e8b57;
+        color: white;
+        box-shadow: 0 4px 15px rgba(46, 139, 87, 0.4);
+    }
+    
+    .btn-primary:hover {
+        background: #006400;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0,100,0,0.6);
+    }
+    
+    .btn-secondary {
+        background: transparent;
+        color: #228B22;
+        border: 2px solid #228B22;
+    }
+    
+    .btn-secondary:hover {
+        background: #228B22;
+        color: white;
+        transform: translateY(-2px);
+    }
+    
+    .card {
+        background: #f8f9fa;
+        padding: 1.5rem;
+        border-radius: 8px;
+        margin-bottom: 1.5rem;
+        border-left: 4px solid #228B22;
+    }
+    
+    .card h4 {
+        color: #228B22;
+        margin-bottom: 0.5rem;
+    }
+    
+    .tab-container {
+        margin: 2rem 0;
+    }
+    
+    .tabs {
+        display: flex;
+        border-bottom: 1px solid #ddd;
+        margin-bottom: 1rem;
+    }
+    
+    .tab {
+        padding: 0.8rem 1.5rem;
+        cursor: pointer;
+        border: 1px solid transparent;
+        border-bottom: none;
+        border-radius: 5px 5px 0 0;
+        margin-right: 0.5rem;
+        background: #f1f1f1;
+    }
+    
+    .tab.active {
+        background: white;
+        border-color: #ddd;
+        border-bottom: 1px solid white;
+        margin-bottom: -1px;
+        font-weight: bold;
+        color: #228B22;
+    }
+    
+    .tab-content {
+        display: none;
+        padding: 1rem;
+        background: white;
+        border: 1px solid #ddd;
+        border-top: none;
+        border-radius: 0 0 5px 5px;
+    }
+    
+    .tab-content.active {
+        display: block;
+    }
+    
+    .footer {
+        background: #0a161a;
+        padding: 3rem 0 1rem;
+        color: var(--text);
+        margin-top: 3rem;
+    }
+    
+    .footer-content {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr;
+        gap: 3rem;
+        margin-bottom: 2rem;
+    }
+    
+    .footer-about h3 {
+        margin-bottom: 1rem;
+        font-size: 1.8rem;
+        font-weight: 700;
+    }
+    
+    .footer-about p {
+        margin-bottom: 1rem;
+        color: var(--text-muted);
+        line-height: 1.6;
+    }
+    
+    .footer-links h4, .footer-contact h4 {
+        color: var(--accent);
+        margin-bottom: 1rem;
+        font-size: 1.2rem;
+        font-weight: 600;
+    }
+    
+    .footer-links ul, .footer-contact ul {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .footer-links a, .footer-contact a {
+        color: var(--text-muted);
+        text-decoration: none;
+        transition: var(--transition);
+    }
+    
+    .footer-links a:hover, .footer-contact a:hover {
+        color: var(--accent);
+    }
+    
+    .footer-bottom {
+        text-align: center;
+        padding-top: 2rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        font-size: 0.9rem;
+        color: var(--text-muted);
+    }
+    
+    .name-logo {
+        display: flex;
+        align-items: center;
+        font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+    }
+    
+    .leonard {
+        color: white;
+        margin-right: 0.2rem;
+    }
+    
+    .kachi {
+        color: var(--accent);
+    }
+    
+    @media (max-width: 768px) {
+        .nav-links {
+            display: none;
+        }
+        
+        .page-header h1 {
+            font-size: 2.2rem;
+        }
+        
+        .footer-content {
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+        
+        .name-logo {
+            font-size: 1.5rem;
+        }
+        
+        .tabs {
+            flex-direction: column;
+        }
+        
+        .tab {
+            margin-right: 0;
+            margin-bottom: 0.5rem;
+            border-radius: 5px;
+        }
+    }
+</style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">DistributedHashCracker</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="#security">Security</a></li>
+                <li><a href="#contributing">Contributing</a></li>
+                <li><a href="https://github.com/LeonardKachi/Distributed-Hash-Cracking.git">GitHub</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <!-- Security Page Content -->
+        <section id="security">
+            <div class="page-header">
+                <h1>Security Framework</h1>
+                <p>Comprehensive security practices, threat modeling, and defense mechanisms for the DistributedHashCracker platform</p>
+            </div>
+            
+            <div class="content-section">
+                <h2 class="section-title">Security Architecture</h2>
+                
+                <div class="subsection">
+                    <h3>Zero Trust Implementation</h3>
+                    <p>Our platform implements a Zero Trust security model where no entity is trusted by default, regardless of whether it's inside or outside the network perimeter.</p>
+                    
+                    <div class="card">
+                        <h4>Core Principles</h4>
+                        <ul class="feature-list">
+                            <li>Verify explicitly: Authenticate and authorize based on all available data points</li>
+                            <li>Use least privilege access: Limit user access with Just-In-Time and Just-Enough-Access principles</li>
+                            <li>Assume breach: Segment access by identity and minimize blast radius</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="subsection">
+                    <h3>Cryptographic Security</h3>
+                    <p>All cryptographic operations follow industry best practices and NIST recommendations.</p>
+                    
+                    <div class="tab-container">
+                        <div class="tabs">
+                            <div class="tab active" onclick="openTab(event, 'encryption')">Data Encryption</div>
+                            <div class="tab" onclick="openTab(event, 'keymgmt')">Key Management</div>
+                            <div class="tab" onclick="openTab(event, 'hashing')">Secure Hashing</div>
+                        </div>
+                        
+                        <div id="encryption" class="tab-content active">
+                            <p><strong>AES-256-GCM</strong> for data at rest and in transit</p>
+                            <div class="code-block">
+// Example encryption implementation
+const crypto = require('crypto');
+
+function encryptData(data, key) {
+    const iv = crypto.randomBytes(16);
+    const cipher = crypto.createCipher('aes-256-gcm', key);
+    let encrypted = cipher.update(data, 'utf8', 'hex');
+    encrypted += cipher.final('hex');
+    const authTag = cipher.getAuthTag();
+    return { iv: iv.toString('hex'), data: encrypted, authTag: authTag.toString('hex') };
+}
+                            </div>
+                        </div>
+                        
+                        <div id="keymgmt" class="tab-content">
+                            <p><strong>AWS KMS</strong> integration for secure key management with automatic rotation</p>
+                            <ul class="feature-list">
+                                <li>Hardware Security Modules (HSM) protection</li>
+                                <li>Automatic key rotation every 90 days</li>
+                                <li>Granular access policies with IAM integration</li>
+                            </ul>
+                        </div>
+                        
+                        <div id="hashing" class="tab-content">
+                            <p><strong>Argon2id</strong> for password hashing with configurable parameters</p>
+                            <div class="code-block">
+// Secure password hashing with Argon2
+const argon2 = require('argon2');
+
+async function hashPassword(password) {
+    return await argon2.hash(password, {
+        type: argon2.argon2id,
+        memoryCost: 2 ** 16,
+        timeCost: 3,
+        parallelism: 1
+    });
+}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="subsection">
+                    <h3>Infrastructure Security</h3>
+                    <p>Multi-layered security approach for AWS infrastructure protection.</p>
+                    
+                    <div class="card">
+                        <h4>Network Security</h4>
+                        <ul class="feature-list">
+                            <li>VPC with public and private subnets</li>
+                            <li>Security groups with minimum required permissions</li>
+                            <li>Network ACLs for subnet-level traffic control</li>
+                            <li>Web Application Firewall (WAF) protection</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="card">
+                        <h4>Identity and Access Management</h4>
+                        <ul class="feature-list">
+                            <li>Role-based access control (RBAC)</li>
+                            <li>Multi-factor authentication (MFA) enforcement</li>
+                            <li>Principle of least privilege applied</li>
+                            <li>Regular access reviews and audits</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content-section">
+                <h2 class="section-title">Threat Modeling & Mitigation</h2>
+                
+                <div class="subsection">
+                    <h3>Identified Threats & Countermeasures</h3>
+                    
+                    <div class="card">
+                        <h4>Data Exfiltration</h4>
+                        <p><strong>Threat:</strong> Unauthorized access to hash databases or results</p>
+                        <p><strong>Mitigation:</strong> Encryption at rest and in transit, strict IAM policies, data loss prevention monitoring</p>
+                    </div>
+                    
+                    <div class="card">
+                        <h4>Denial of Service</h4>
+                        <p><strong>Threat:</strong> Resource exhaustion through malicious requests</p>
+                        <p><strong>Mitigation:</strong> Rate limiting, auto-scaling with budget caps, CloudFront with AWS Shield</p>
+                    </div>
+                    
+                    <div class="card">
+                        <h4>Supply Chain Attacks</h4>
+                        <p><strong>Threat:</strong> Compromised dependencies or container images</p>
+                        <p><strong>Mitigation:</strong> Software composition analysis, container image scanning, dependency vulnerability monitoring</p>
+                    </div>
+                </div>
+                
+                <div class="subsection">
+                    <h3>Security Monitoring & Incident Response</h3>
+                    <p>Comprehensive logging and monitoring with automated incident response procedures.</p>
+                    
+                    <ul class="feature-list">
+                        <li>AWS CloudTrail for API activity logging</li>
+                        <li>Amazon GuardDuty for threat detection</li>
+                        <li>Custom CloudWatch metrics and alarms</li>
+                        <li>Automated incident response playbooks</li>
+                        <li>Regular security penetration testing</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Contributing Page Content -->
+        <section id="contributing" style="display: none;">
+            <div class="page-header">
+                <h1>Contribution Guidelines</h1>
+                <p>Join our community of security researchers and help build the future of distributed hash cracking</p>
+            </div>
+            
+            <div class="content-section">
+                <h2 class="section-title">Getting Started</h2>
+                
+                <div class="subsection">
+                    <h3>Development Environment Setup</h3>
+                    <p>Follow these steps to set up your local development environment:</p>
+                    
+                    <div class="code-block">
+# Clone the repository
+git clone https://github.com/LeonardKachi/Distributed-Hash-Cracking.git
+cd Distributed-Hash-Cracking
+
+# Install dependencies
+npm install
+
+# Set up environment variables
+cp .env.example .env
+# Edit .env with your configuration
+
+# Start development server
+npm run dev
+                    </div>
+                    
+                    <p>For detailed setup instructions, check our <a href="#">Development Setup Guide</a>.</p>
+                </div>
+                
+                <div class="subsection">
+                    <h3>Project Structure</h3>
+                    <p>Understanding the codebase organization:</p>
+                    
+                    <div class="card">
+                        <h4>Key Directories</h4>
+                        <ul class="feature-list">
+                            <li><code>/src</code> - Main application source code</li>
+                            <li><code>/infrastructure</code> - AWS CDK infrastructure as code</li>
+                            <li><code>/docs</code> - Project documentation</li>
+                            <li><code>/tests</code> - Unit and integration tests</li>
+                            <li><code>/scripts</code> - Deployment and utility scripts</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content-section">
+                <h2 class="section-title">Contribution Workflow</h2>
+                
+                <div class="subsection">
+                    <h3>Fork & Pull Request Model</h3>
+                    <p>We follow the standard GitHub contribution workflow:</p>
+                    
+                    <ol style="padding-left: 1.5rem; line-height: 1.7;">
+                        <li><strong>Fork</strong> the repository to your GitHub account</li>
+                        <li><strong>Clone</strong> your forked repository locally</li>
+                        <li><strong>Create a feature branch</strong> for your changes</li>
+                        <li><strong>Make your changes</strong> and test thoroughly</li>
+                        <li><strong>Commit</strong> with descriptive commit messages</li>
+                        <li><strong>Push</strong> to your forked repository</li>
+                        <li><strong>Open a Pull Request</strong> to the main repository</li>
+                    </ol>
+                </div>
+                
+                <div class="subsection">
+                    <h3>Code Quality Standards</h3>
+                    <p>Maintain high code quality with these guidelines:</p>
+                    
+                    <div class="card">
+                        <h4>Coding Standards</h4>
+                        <ul class="feature-list">
+                            <li>Follow ESLint and Prettier configurations</li>
+                            <li>Write meaningful comments and documentation</li>
+                            <li>Include unit tests for new functionality</li>
+                            <li>Ensure all tests pass before submitting PR</li>
+                            <li>Follow security best practices in all code changes</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="card">
+                        <h4>Commit Message Convention</h4>
+                        <p>Use conventional commit messages:</p>
+                        <div class="code-block">
+feat: add support for SHA-512 algorithm
+fix: resolve memory leak in worker nodes
+docs: update API documentation
+test: add unit tests for hash validation
+chore: update dependencies
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content-section">
+                <h2 class="section-title">Areas for Contribution</h2>
+                
+                <div class="subsection">
+                    <h3>Priority Features</h3>
+                    <p>Help us implement these high-priority features:</p>
+                    
+                    <div class="card">
+                        <h4>Algorithm Support</h4>
+                        <ul class="feature-list">
+                            <li>Implement additional hash algorithms (bcrypt, scrypt)</li>
+                            <li>Optimize existing algorithm implementations</li>
+                            <li>Add GPU acceleration support</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="card">
+                        <h4>User Experience</h4>
+                        <ul class="feature-list">
+                            <li>Improve web interface design and responsiveness</li>
+                            <li>Add real-time progress visualization</li>
+                            <li>Implement batch operations and job scheduling</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="card">
+                        <h4>Infrastructure</h4>
+                        <ul class="feature-list">
+                            <li>Multi-cloud support (Azure, GCP)</li>
+                            <li>Container optimization and size reduction</li>
+                            <li>Cost optimization and resource utilization</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="subsection">
+                    <h3>Documentation & Testing</h3>
+                    <p>Non-code contributions are equally valuable:</p>
+                    
+                    <ul class="feature-list">
+                        <li>Write tutorials and how-to guides</li>
+                        <li>Improve API documentation</li>
+                        <li>Create integration tests</li>
+                        <li>Performance benchmarking</li>
+                        <li>Security testing and vulnerability assessment</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="content-section">
+                <h2 class="section-title">Community Guidelines</h2>
+                
+                <div class="subsection">
+                    <h3>Code of Conduct</h3>
+                    <p>We are committed to providing a friendly, safe, and welcoming environment for all.</p>
+                    
+                    <div class="card">
+                        <h4>Our Pledge</h4>
+                        <p>We as members, contributors, and leaders pledge to make participation in our community a harassment-free experience for everyone, regardless of age, body size, visible or invisible disability, ethnicity, sex characteristics, gender identity and expression, level of experience, education, socio-economic status, nationality, personal appearance, race, religion, or sexual identity and orientation.</p>
+                    </div>
+                    
+                    <div class="card">
+                        <h4>Our Standards</h4>
+                        <ul class="feature-list">
+                            <li>Using welcoming and inclusive language</li>
+                            <li>Being respectful of differing viewpoints and experiences</li>
+                            <li>Gracefully accepting constructive criticism</li>
+                            <li>Focusing on what is best for the community</li>
+                            <li>Showing empathy towards other community members</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="subsection">
+                    <h3>Getting Help</h3>
+                    <p>Need assistance? Here's how to get help:</p>
+                    
+                    <ul class="feature-list">
+                        <li>Check existing documentation and GitHub issues</li>
+                        <li>Join our Discord community for real-time help</li>
+                        <li>Create a GitHub issue for bugs or feature requests</li>
+                        <li>Reach out to maintainers for security-related concerns</li>
+                    </ul>
+                    
+                    <div style="text-align: center; margin-top: 2rem;">
+                        <a href="https://github.com/LeonardKachi/Distributed-Hash-Cracking.git" class="btn btn-primary">Start Contributing</a>
+                        <a href="#" class="btn btn-secondary">Join Community</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <div style="text-align: center; margin: 2rem 0;">
+            <button onclick="togglePages()" class="btn btn-primary" id="toggleButton">View Contributing Guidelines</button>
+        </div>
+    </main>
+    
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="name-logo">
+                        <span class="leonard">leonard</span>
+                        <span class="kachi">kachi</span>
+                    </div>
+                    <p>Cloud Security Architect specializing in AWS, Azure, and Zero Trust implementations.</p>
+                    <p>Turning threats into design. By blending AWS, Zero Trust, and automation, I build security infrastructures that scale and stories that launch careers.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="https://leonardkachi.github.io/Portfolio-website/index.html#about">About</a></li>
+                        <li><a href="https://leonardkachi.github.io/Portfolio-website/index.html#projects">Other Projects</a></li>
+                        <li><a href="https://leonardkachi.github.io/Portfolio-website/index.html#lab">Security Lab</a></li>
+                        <li><a href="https://leonardkachi.github.io/Portfolio-website/index.html#articles">Articles</a></li>
+                        <li><a href="https://leonardkachi.github.io/Portfolio-website/">Contact</a></li>
+                        <li><a href="#security">Security</a></li>
+                        <li><a href="#contributing">Contributing</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-contact">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="mailto:Kachi.Henry.Leo@gmail.com">Kachi.Henry.Leo@gmail.com</a></li>
+                        <li><a href="https://github.com/LeonardKachi" target="_blank">GitHub</a></li>
+                        <li><a href="https://www.linkedin.com/in/onyedikachi-obidiegwu" target="_blank">LinkedIn</a></li>
+                        <li><a href="https://twitter.com/Leonard_kachi" target="_blank">Twitter</a></li>
+                        <li><a href="https://dev.to/leonardkachi" target="_blank">Dev.to</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; <span id="year">2025</span> Obidiegwu Onyedikachi Henry Leonard. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Tab functionality
+        function openTab(evt, tabName) {
+            const tabcontent = document.getElementsByClassName("tab-content");
+            for (let i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+            
+            const tablinks = document.getElementsByClassName("tab");
+            for (let i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+            
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+        
+        // Toggle between Security and Contributing pages
+        function togglePages() {
+            const securityPage = document.getElementById('security');
+            const contributingPage = document.getElementById('contributing');
+            const toggleButton = document.getElementById('toggleButton');
+            
+            if (securityPage.style.display !== 'none') {
+                securityPage.style.display = 'none';
+                contributingPage.style.display = 'block';
+                toggleButton.textContent = 'View Security Framework';
+            } else {
+                securityPage.style.display = 'block';
+                contributingPage.style.display = 'none';
+                toggleButton.textContent = 'View Contributing Guidelines';
+            }
+            
+            // Scroll to top when switching pages
+            window.scrollTo(0, 0);
+        }
+        
+        // Set current year in footer
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
