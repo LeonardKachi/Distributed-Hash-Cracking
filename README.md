@@ -3,8 +3,8 @@
 > On-demand, distributed hash cracking using your own cloud infrastructure
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](CONTRIBUTING.md)
-[![Security Focus](https://img.shields.io/badge/focus-security%20research-blue)](docs/SECURITY.md)
+[![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://leonardkachi.github.io/Distributed-Hash-Cracking/SecurityContributing.html#contributing)
+[![Security Focus](https://img.shields.io/badge/focus-security%20research-blue)](https://leonardkachi.github.io/Distributed-Hash-Cracking/SecurityContributing.html)
 
 ## What is this?
 
@@ -98,7 +98,7 @@ We welcome contributions from security researchers, cloud engineers, and cryptog
 - **Cryptography**: Hash cracking algorithms and optimization
 - **Security**: Credential management, audit procedures
 
-See our [Contributing Guide](CONTRIBUTING.md) for detailed information.
+See our [Contributing Guide](https://leonardkachi.github.io/Distributed-Hash-Cracking/SecurityContributing.html#contributing) for detailed information.
 
 ## Security Considerations
 
@@ -109,13 +109,13 @@ This platform is designed for legitimate security research, penetration testing,
 - Implementing appropriate access controls
 - Following responsible disclosure practices
 
-See our [Security Policy](docs/SECURITY.md) for complete guidelines.
+See our [Security Policy](https://leonardkachi.github.io/Distributed-Hash-Cracking/SecurityContributing.html) for complete guidelines.
 
 ## Community
 
 - **Discussions**: Use GitHub Discussions for questions and ideas
 - **Issues**: Report bugs and feature requests via GitHub Issues
-- **Security**: Contact [Security Policy](docs/SECURITY.md) for vulnerabilities
+- **Security**: Contact [Security Policy](https://leonardkachi.github.io/Distributed-Hash-Cracking/SecurityContributing.html) for vulnerabilities
 - **Updates**: Follow [@Leonard_kachi](https://twitter.com/@Leonard_kachi) for development updates
 
 ## Roadmap
