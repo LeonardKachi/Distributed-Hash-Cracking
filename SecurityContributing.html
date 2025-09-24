@@ -42,16 +42,22 @@
         padding: 0 20px;
     }
     
-    header {
-        background: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(10px);
-        padding: 1rem 0;
-        position: fixed;
-        width: 100%;
-        top: 0;
-        z-index: 1000;
-        box-shadow: 0 2px 20px rgba(0,0,0,0.1);
-    }
+header {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  padding: 1rem 0;
+  position: fixed;
+  width: 100%;
+  top: -100px; /* hide it off screen */
+  z-index: 1000;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+  transition: top 0.3s ease; /* smooth slide-in */
+}
+
+header.visible {
+  top: 0; /* slide into view */
+}
+
     
     nav {
         display: flex;
@@ -882,6 +888,31 @@ chore: update dependencies
                 }
             });
         });
+        const header = document.querySelector("header");
+let lastScroll = 0;
+
+window.addEventListener("scroll", () => {
+  const currentScroll = window.pageYOffset;
+
+  if (currentScroll > lastScroll && currentScroll > 100) {
+    // user scrolling down past 100px → show header
+    header.classList.add("visible");
+  } else if (currentScroll < lastScroll) {
+    // user scrolling up → hide header
+    header.classList.remove("visible");
+  }
+
+  lastScroll = currentScroll;
+});
+
+// Show header when cursor is near top
+document.addEventListener("mousemove", (e) => {
+  if (e.clientY < 80) { // if mouse is within 80px of top
+    header.classList.add("visible");
+  } else if (window.scrollY < 100) {
+    header.classList.remove("visible");
+  }
+});
     </script>
 </body>
 </html>
