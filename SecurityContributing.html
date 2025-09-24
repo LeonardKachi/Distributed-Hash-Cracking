@@ -467,7 +467,7 @@ header.visible {
                         
                         <div id="encryption" class="tab-content active">
                             <p><strong>AES-256-GCM</strong> for data at rest and in transit</p>
-                            <div class="code-block">
+                           <pre class="code-block"><code>
 // Example encryption implementation
 const crypto = require('crypto');
 
@@ -479,7 +479,7 @@ function encryptData(data, key) {
     const authTag = cipher.getAuthTag();
     return { iv: iv.toString('hex'), data: encrypted, authTag: authTag.toString('hex') };
 }
-                            </div>
+                            </code></pre>
                         </div>
                         
                         <div id="keymgmt" class="tab-content">
@@ -493,7 +493,7 @@ function encryptData(data, key) {
                         
                         <div id="hashing" class="tab-content">
                             <p><strong>Argon2id</strong> for password hashing with configurable parameters</p>
-                            <div class="code-block">
+                            <pre class="code-block"><code>
 // Secure password hashing with Argon2
 const argon2 = require('argon2');
 
@@ -505,7 +505,7 @@ async function hashPassword(password) {
         parallelism: 1
     });
 }
-                            </div>
+                            </code></pre>
                         </div>
                     </div>
                 </div>
